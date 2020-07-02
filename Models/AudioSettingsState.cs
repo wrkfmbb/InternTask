@@ -8,5 +8,6 @@ namespace InternTask.Models
 {
     class AudioSettingsState
     {
+
     }
 }

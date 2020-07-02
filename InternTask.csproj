@@ -123,10 +123,13 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AudioSettingsState.cs" />
+    <Compile Include="Models\AudioDevice.cs" />
+    <Compile Include="Models\AudioDeviceDatabase.cs" />
+    <Compile Include="Models\SpatialSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AudioSettigsStateViewModel.cs" />
-    <Compile Include="Views\AudioSettingsStateView.xaml.cs">
-      <DependentUpon>AudioSettingsStateView.xaml</DependentUpon>
+    <Compile Include="ViewModels\AudioDeviceViewModel.cs" />
+    <Compile Include="Views\AudioSettingsView.xaml.cs">
+      <DependentUpon>AudioSettingsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +137,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="InternTask_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -154,7 +158,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\AudioSettingsStateView.xaml">
+    <Page Include="Views\AudioSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
