@@ -53,7 +53,7 @@ namespace InternTask.ViewModels
 
         private async Task<IReadOnlyCollection<DeviceInformation>> InitializeDeviceInformation()
         {
-            var deviceInformation = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());//this.AudioDeviceDatabase.AudioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
+            var deviceInformation = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
             AudioDeviceDatabase.AudioDevices = deviceInformation;
             return deviceInformation;
 
