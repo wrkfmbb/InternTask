@@ -17,23 +17,21 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using InternTask.ViewModels;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace InternTask.Views
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// 
     /// </summary>
     public sealed partial class AudioSettingsStateView : Page
     {
-        private AudioDeviceViewModel ViewModel = new AudioDeviceViewModel();
+        private AudioDeviceViewModel ViewModel { get; set; } = new AudioDeviceViewModel();
 
         public AudioSettingsStateView()
         {
+            DataContext = ViewModel; 
             this.InitializeComponent();
-
-                         
-
+            if (IsActiveDolbyAtmosForHeadphones()) Setup.Visibility = Visibility.Visible; 
         }
 
         private bool IsActiveDolbyAtmosForHeadphones()

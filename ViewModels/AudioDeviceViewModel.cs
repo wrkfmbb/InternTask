@@ -29,8 +29,6 @@ namespace InternTask.ViewModels
         public SpatialAudioDeviceConfiguration SpatialAudioDeviceConfiguration { get; set; }
 
 
-
-
         private async void GetDeviceInformation()
         {
             AudioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
