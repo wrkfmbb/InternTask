@@ -14,43 +14,72 @@ namespace InternTask.ViewModels
 {
     class AudioDeviceViewModel
     {
+        public AudioDeviceDatabase AudioDeviceDatabase = new AudioDeviceDatabase();
 
         public AudioDeviceViewModel()
         {
-            GetDeviceInformation();
-            GetDefaultAudioDevice();
-            GetSpatialAudioConf();
+            InitializeAudioDeviceDatabase();
+            //InitializeDeviceInformation();
+            //InitializeDefaultAudioDevice();
+            //InitializeSpatialAudioConf();
         }
 
-        public IReadOnlyCollection<DeviceInformation> AudioDevices { get; set; }
+        //private async void InitializeDeviceInformation()
+        //{
+        //    this.AudioDeviceDatabase.AudioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
+        //}
 
-        public DeviceInformation DefaultAudioDevice { get; set; }
+        //private async void InitializeDefaultAudioDevice()
+        //{
+        //    string id = MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
 
-        public SpatialAudioDeviceConfiguration SpatialAudioDeviceConfiguration { get; set; }
+        //    if (id != null)
+        //        this.AudioDeviceDatabase.DefaultAudioDevice = await DeviceInformation.CreateFromIdAsync(id);
+        //}
 
-
-        private async void GetDeviceInformation()
+        private void InitializeSpatialAudioConf()
         {
-            AudioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
-        }
-
-        private async void GetDefaultAudioDevice()
-        {
-            string id = MediaDevice.GetDefaultAudioCaptureId(AudioDeviceRole.Default);
-
-            if (id != null)
-                DefaultAudioDevice = await DeviceInformation.CreateFromIdAsync(id);
-        }
-
-        public void GetSpatialAudioConf()
-        {
-            SpatialAudioDeviceConfiguration = SpatialAudioDeviceConfiguration.GetForDeviceId(DefaultAudioDevice.Id);
-            SpatialAudioDeviceConfiguration.ConfigurationChanged += SpatialAudioDeviceConfiguration_ConfigurationChanged;
+            if (AudioDeviceDatabase.DefaultAudioDevice != null)
+            {
+                AudioDeviceDatabase.SpatialAudioDeviceConfiguration = SpatialAudioDeviceConfiguration.GetForDeviceId(AudioDeviceDatabase.DefaultAudioDevice.Id);
+                AudioDeviceDatabase.SpatialAudioDeviceConfiguration.ConfigurationChanged += SpatialAudioDeviceConfiguration_ConfigurationChanged;
+            }
         }
 
         private void SpatialAudioDeviceConfiguration_ConfigurationChanged(SpatialAudioDeviceConfiguration sender, object args)
         {
 
         }
+
+        private async Task<IReadOnlyCollection<DeviceInformation>> InitializeDeviceInformation()
+        {
+            var deviceInformation = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());//this.AudioDeviceDatabase.AudioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
+            AudioDeviceDatabase.AudioDevices = deviceInformation;
+            return deviceInformation;
+
+        }
+        private async Task<DeviceInformation> InitializeDefaultAudioDevice()
+        {
+            string id = MediaDevice.GetDefaultAudioRenderId(AudioDeviceRole.Default);
+            
+            var defaultDevice = await DeviceInformation.CreateFromIdAsync(id);
+            AudioDeviceDatabase.DefaultAudioDevice = defaultDevice;
+
+
+            return defaultDevice; 
+
+        }
+
+        private async void InitializeAudioDeviceDatabase()
+        {
+            await InitializeDeviceInformation();
+            await InitializeDefaultAudioDevice(); 
+            InitializeSpatialAudioConf();
+
+        }
+
+        public string GetSpatialSubtype() => AudioDeviceDatabase.SpatialAudioDeviceConfiguration.ActiveSpatialAudioFormat;
+
+
     }
 }

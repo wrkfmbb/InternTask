@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
+using Windows.Media.Audio;
 using Windows.Media.Devices;
 
 namespace InternTask.Models
 {
+   
+
     class AudioDeviceDatabase
     {
-        public IReadOnlyCollection<DeviceInformation> audioDevices;
+        public IReadOnlyCollection<DeviceInformation> AudioDevices { get; set; }
 
-        public AudioDeviceDatabase()
-        {
-            GetDeviceInformation();
-        }
+        public DeviceInformation DefaultAudioDevice { get; set; }
 
-        async void GetDeviceInformation()
-        {
-            audioDevices = await DeviceInformation.FindAllAsync(MediaDevice.GetAudioRenderSelector());
-
-        }
+        public SpatialAudioDeviceConfiguration SpatialAudioDeviceConfiguration { get; set; }
+     
     }
 }

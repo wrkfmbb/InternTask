@@ -31,12 +31,13 @@ namespace InternTask.Views
         {
             DataContext = ViewModel; 
             this.InitializeComponent();
-            if (IsActiveDolbyAtmosForHeadphones()) Setup.Visibility = Visibility.Visible; 
+
+           // if (!IsActiveDolbyAtmosForHeadphones()) Setup.Visibility = Visibility.Collapsed;   
         }
 
         private bool IsActiveDolbyAtmosForHeadphones()
         {
-            if (ViewModel.SpatialAudioDeviceConfiguration.ActiveSpatialAudioFormat == SpatialAudioFormatSubtype.DolbyAtmosForHeadphones)
+            if (ViewModel.GetSpatialSubtype() == SpatialAudioFormatSubtype.DolbyAtmosForHeadphones)
 
                 return true;
 
@@ -45,7 +46,7 @@ namespace InternTask.Views
 
         private void Setup_Click(object sender, RoutedEventArgs e)
         {
-            if (IsActiveDolbyAtmosForHeadphones()) 
+            if (!IsActiveDolbyAtmosForHeadphones()) 
             {
                 // System.Diagnostics.Process.Start("control", "mmsys.cpl");
             }

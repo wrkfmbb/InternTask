@@ -122,7 +122,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\AudioSettingsState.cs" />
     <Compile Include="Models\AudioDevice.cs" />
     <Compile Include="Models\AudioDeviceDatabase.cs" />
     <Compile Include="Models\SpatialSupport.cs" />
